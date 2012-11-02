@@ -14,7 +14,7 @@
         <link href="Estilos/formulario.css" rel="stylesheet" type="text/css">
         <script src="Scripts/jquery-ui.js"></script>
         <link rel="stylesheet" href="Estilos/jquery-ui.css" />
-        <title>Registro de Alumno</title>
+        <title>Register Student</title>
         <script>
             $(function() {
                 $( "#fecha" ).datepicker();
