@@ -1,0 +1,163 @@
+@import url("menu.css");
+
+
+body
+{
+    
+    background: #F78181;
+    color: #FAFAFA;
+    font-family: tahoma;
+
+}
+
+div.encabezado
+{
+    background: #ffffff;
+    background-image:url(../images/Rojo1.jpg);
+    background-position: left top;
+    background-repeat: no-repeat;
+    border: 20px;
+    border-color: red;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    border-bottom-style: solid;
+    color: #F78181;
+    padding:0.5em;
+    text-align:center;
+    font-size:2em;
+    margin: 0;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 10%;
+    width: 100%;
+    z-index: 0;
+}
+
+
+div.titulo
+{
+    position: absolute;
+    left: 0px;
+    top: 3%;
+    height: 3%;
+    width: 100%;
+    font-size: xx-large;
+    text-align: right;
+    color: #FAFAFA;
+    z-index: 1
+
+}
+
+
+div.contenido
+{
+    color: #B40404;
+    font-family: tahoma;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+iframe.area-desplegado
+{
+    top:  20%;
+    left: 15%;
+    width: 85%;
+    height: 80%;
+    position: absolute;
+    overflow: scroll;
+}
+
+h1.tema
+{
+    text-align:right;
+    font-size:2em;
+    color: red;
+}
+
+table.catalogo {
+
+    width: 100%;
+    border: 3px solid #F78181;
+    font-family: tahoma;
+}
+
+table.catalogo th {
+    border: 1px solid #DF0101; padding: 1em;
+    color: #F6CECE;
+    background: #F78181;
+
+}
+
+
+table.catalogo td {
+    border: 1px solid #F78181;
+}
+
+td.imagen
+{
+    text-align: center;
+}
+
+
+table.catalogo span {
+
+    color: red;
+    font-weight: bold;
+}
+
+/* Estilo para formas*/
+
+
+form p.texto {  	letter-spacing: 3px;color:rgb(255,0,0);font-weight: bold}
+
+form span.label {	width:150px;vertical-align:top;color:rgb(254,46,46);float:left}
+
+
+form div.centrado
+{
+    text-align: center;
+}
+
+
+
+form textarea {border:1px inset rgb(247,129,129);
+               width: 400px;
+               background:rgb(245,169,169)}
+
+
+#recuadro
+{
+    width: auto;
+    background: #e6eff0;
+    color: #F6CECE;
+    border: 1px inset;
+    padding: 1em;
+    margin: 0.5em;
+    margin-top: 2em;
+    font-size: smaller;
+}
+
+#recuadro span
+{
+    color: black;
+}
+.boton
+{
+    background: #849175;
+    border:solid 0;
+    color: #fff;
+    padding: 10px;
+
+}
+#container{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    background: #DF0101;
+    font-family: 'Confortaa',sans-serif;
+
+}
+

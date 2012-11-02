@@ -1,0 +1,108 @@
+
+/* 
+    Document   : vista
+    Created on : 02-nov-2012, 9:10:41
+    Author     : Manuel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.body{
+ margin: 20px;
+ padding: 2;
+ background: #999999 url(../images/fondo.jpeg);
+ background-size: cover;
+ font-family: arial, helvetica, sans-serif;
+  }
+#contenedor {
+  width: 1200px;
+  margin: 0 auto;
+  }
+ 
+#cabecera {
+  background: #FE2E2E;
+  border: solid 1px #FE2E2E;
+  }
+ 
+#cabecera h1  {
+  margin: 0;
+  line-height: 100px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  }
+ 
+#principal  {
+  background: #f4f4f4;
+  display: table;
+  }
+ 
+#izquierda  {
+  width: 400px;
+  padding: 10px;
+  display: table-cell;
+  background: #F5A9A9;
+  border: solid 1px #444;
+  border-top: 0;
+  border-right: 0;
+  color: #fff;
+  }
+ 
+#izquierda ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+ 
+#izquierda ul li  {
+  line-height: 25px;
+  }
+ 
+#izquierda ul li a  {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border: solid 2px #FA5858;
+  background-color: #FA5858;
+  margin: 2px 0;
+  }
+ 
+#izquierda ul li a:hover  {
+  color: #bbb;
+  border-color: #bbb;
+  }
+ 
+#central  {
+  padding: 10px;
+  background: #fff;
+  border: solid 1px #444;
+  border-top: 0;
+  display: table-cell;
+  width: 800px;
+  background-image: url(../images/uno.jpg);
+  }
+ 
+#pie  {
+  background: #000;
+  }
+ 
+#pie p  {
+  margin: 0;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  }
+ 
+#pie p a  {
+  color: #99f;
+  }
+ 
+#pie p a:hover  {
+  color: #9f9;
+  }

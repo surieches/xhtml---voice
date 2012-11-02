@@ -1,0 +1,111 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" namespace="/" extends="struts-default">
+        <action name="grammar" class="example.HelloWorld" >
+            <result name="SUCCESS">/example/HelloWorld.jsp</result>
+        </action>
+        
+        <action name="RegistroAlumno" class="General.AlumnoRegistro">
+            <result name="SUCCESS">/RegistroCorrecto.jsp</result>
+        </action>
+        
+        <action name="Login" class="General.Validar">
+            <result name="ADMIN">/Administrador/VistaAdmin.jsp</result>
+            <result name="PROFESOR">/Profesor/Inicio.jsp</result>
+            <result name="ALUMNO">/Alumno/Inicio.jsp</result>
+            <result name="FAILURE">/index.jsp</result>
+        </action>
+    </package>
+    
+    <package name="Profesor" namespace="/Profesor" extends="struts-default">
+        <action name="CrearGrammar" class="Profesor.CrearContenidoControlador" >
+            <result name="SUCCESS">/Profesor/CreateGrammar.jsp</result>
+        </action>
+        <action name="CrearContenido" class="Profesor.CrearContenidoControlador" method="Grammar">
+            <result name="SUCCESS">/Profesor/CrearConversacion.jsp</result>
+        </action>
+        
+        <action name="CrearEjercicios" class="Profesor.CrearContenidoControlador" method="Dialogo">
+            <result name="SUCCESS">/Profesor/CrearContenido.jsp</result>
+        </action>
+        
+        <action name="AgregarPregunta" class="Profesor.CrearContenidoControlador" method="AgregarPregunta">
+            <result name="FALSETRUE">/Profesor/FalseTrue.jsp</result>
+            <result name="COLUMNS">/Profesor/Columns.jsp</result>
+            <result name="MULTIPLECHOICE">/Profesor/MultipleChoice.jsp</result>
+            <result name="AUTOCOMPLETE">/Profesor/Autocomplete.jsp</result>
+            <result name="FAILURE">/index.jsp</result>
+        </action>
+        
+        <action name="GuardarPregunta" class="Profesor.CrearContenidoControlador" method="GuardarPregunta">
+            <result name="SUCCESS">/Profesor/CrearContenido.jsp</result>
+        </action>
+        
+        <action name="GuardarContenido" class="Profesor.CrearContenidoControlador" method="GuardarContenido">
+            <result name="SUCCESS">/Profesor/ContenidoCreado.jsp</result>
+            <result name="FAILURE">/Profesor/ContenidoFallo.jsp</result>
+        </action>
+    </package>
+	
+	<package name="Administrador" namespace="/" extends="struts-default">
+        <action name="cerrarSesion" class="General.Validar" method="SessionOff">
+            <result name="exito">/index.jsp</result>
+        </action>
+        <action name="agregarInicio" class="Beans.BinUsuario" method="insertarInicio">
+            <result name="exito">/Administrador/Inserta.jsp</result>
+        </action>
+        <action name="agregar" class="AdministradorControl.Insert">
+            <result name="ERROR">/Administrador/Inserta.jsp</result>
+            <result>/Administrador/Exito.jsp</result>
+        </action>
+        <action name="regresar" class="AdministradorControl.DatosCon" method="regresar">
+            <result name="exito">/Administrador/AdminInicio.jsp</result>
+        </action>
+        <action name="listarInicio" class="Beans.BinUsuario" method="listarInicio">
+            <result name="exito">/Administrador/ListaUsuarios.jsp</result>
+        </action>
+        <action name="Listar" class="AdministradorControl.Listar">
+            <result name="exito">/Administrador/ListaUsuarios.jsp</result>  
+        </action> 
+        <action name="especificacionInicio" class="Beans.BinUsuario" method="especificacionInicio">
+            <result name="exito">/Administrador/Especificacion.jsp</result>
+        </action>  
+        <action name="agregarEs" class="AdministradorControlEs.InsertEs">
+            <result name="ERROR">/Administrador/Error.jsp</result>
+            <result>/Administrador/ExitoEs.jsp</result>
+        </action> 
+        
+        <action name="eliminarInicio" class="Beans.BinUsuario" method="eliminarInicio">
+            <result name="exito">/Administrador/OpcionEliminar.jsp</result>
+        </action> 
+        <action name="porNombre" class="AdministradorControl.DatosCon" method="porNombre">
+            <result name="exito">/Administrador/Elimina.jsp</result>
+        </action> 
+        
+        <action name="porMatricula" class="AdministradorControl.DatosCon" method="porMat">
+            <result name="exito">/Administrador/EliminaMatricula.jsp</result>
+        </action> 
+        
+        <action name="Eliminar" class="AdministradorControl.Eliminar">
+            <result name="Exito">/Administrador/ExitoEliminado.jsp</result>
+            <result name="Fallo">/Administrador/Elimina.jsp</result>
+        </action>   
+        
+        <action name="EliminarM" class="AdministradorControl.EliminarMat">
+            <result name="Exito">/Administrador/ExitoEliminado.jsp</result>
+            <result name="Fallo">/Administrador/Elimina.jsp</result>
+        </action>  
+         
+        <action name="modInicio" class="Beans.BinUsuario" method="modInicio">
+            <result name="exito">/Administrador/Modifica.jsp</result>
+        </action>  
+          <action name="Actualizar" class="AdministradorControl.Update">
+            <result name="ERROR">/Administrador/Error.jsp</result>
+            <result>/Administrador/ExitoAct.jsp</result>
+        </action>
+    </package>
+</struts>
