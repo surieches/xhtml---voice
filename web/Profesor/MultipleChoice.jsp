@@ -22,7 +22,7 @@
             <s:textfield name="preguntas_M" label="Respuesta 4"/>
             <s:textfield name="preguntas_M" label="Respuesta 5"/>
             
-            <s:radio name="Respuesta" list="#'1':'Respuesta 1','2':'Respuesta 2','3':'Respuesta 3','4':'Respuesta 4','5':'Respuesta 5'" value="1" />
+            <s:radio name="Respuesta" list="#{'1':'Respuesta 1','2':'Respuesta 2','3':'Respuesta 3','4':'Respuesta 4','5':'Respuesta 5'}" value="1" />
             <s:submit value="Agregar"/>
         </s:form>
     </body>

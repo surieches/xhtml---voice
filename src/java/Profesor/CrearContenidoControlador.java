@@ -4,6 +4,7 @@
  */
 package Profesor;
 
+import BaseDeDatos.ProfesorBD;
 import Beans.PreguntaProfesor;
 import ProfesorBeans.CrearPreguntas;
 import com.opensymphony.xwork2.ActionContext;
@@ -19,7 +20,7 @@ import org.apache.struts2.interceptor.SessionAware;
  *
  * @author Maximus
  */
-public class CrearContenidoControlador extends ActionSupport implements SessionAware,ServletRequestAware {
+public class CrearContenidoControlador extends ActionSupport implements SessionAware, ServletRequestAware {
 
     private Map session;//la session
     private String Intro;//la lectura
@@ -31,10 +32,11 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
     private String Respuesta;//la respuesta
     private String NombreContenido;//el nombre como se llamara el contenido
     private HttpServletRequest servletRequest;//para obtener el path
-    
     private String[] preguntas_M;//las preguntas (la ocupo para Multiple Choice y Relacion de columnas)
     private String[] respuestas_M;//las respuestas de las columnas
-    
+    private List<String> grupos = new ArrayList<String>();
+    private String GrupoNombre;//ID del grupo que puso
+
     @Override
     public String execute() {
         session = ActionContext.getContext().getSession();
@@ -49,7 +51,7 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
         return "SUCCESS";
     }
 
-    public String Dialogo(){
+    public String Dialogo() {
         session = ActionContext.getContext().getSession();
         NumPregunta = 1;
         Preguntas = new ArrayList<PreguntaProfesor>();
@@ -58,9 +60,10 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
         session.put("NumPregunta", NumPregunta);
         return "SUCCESS";
     }
-    
+
     public String AgregarPregunta() {
         session = ActionContext.getContext().getSession();
+
         switch (TipoPregunta) {
             case 1:
                 session.put("TipoPregunta", TipoPregunta);
@@ -82,6 +85,11 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
 
     public String GuardarPregunta() {
         session = ActionContext.getContext().getSession();
+        ProfesorBD p = new ProfesorBD();
+        List<List<String>> list = p.Grupos(session.get("ID").toString());
+        if (list != null) {
+            grupos = list.get(1);
+        }
         TipoPregunta = (Integer) session.get("TipoPregunta");
         Preguntas = (List<PreguntaProfesor>) session.get("Preguntas");
         PreguntaProfesor pregunta = new PreguntaProfesor();
@@ -89,11 +97,12 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
         switch (TipoPregunta) {
             case 1:
                 System.out.println("<<<Guardar Respuesta Multiple>>>");
-                System.out.println("El texto de la pregunta es "+TextoPregunta);
-                for(String s:preguntas_M){
-                System.out.println("Las respuestas son "+s);}
-                System.out.println("La respuestas es "+ Respuesta);
-                pregunta =  crear.CrearMultipleChoice(pregunta,TextoPregunta,preguntas_M,Respuesta);
+                System.out.println("El texto de la pregunta es " + TextoPregunta);
+                for (String s : preguntas_M) {
+                    System.out.println("Las respuestas son " + s);
+                }
+                System.out.println("La respuestas es " + Respuesta);
+                pregunta = crear.CrearMultipleChoice(pregunta, TextoPregunta, preguntas_M, Respuesta);
                 Preguntas.add(pregunta);
                 session.put("Preguntas", Preguntas);
                 NumPregunta = (Integer) session.get("NumPregunta");
@@ -102,20 +111,20 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
                 return "SUCCESS";
             case 2:
                 System.out.println("<<<Guardar Pregunta False True>>>");
-                pregunta = crear.CrearFalseTrue(pregunta, TextoPregunta,Integer.parseInt(Respuesta));
+                pregunta = crear.CrearFalseTrue(pregunta, TextoPregunta, Integer.parseInt(Respuesta));
                 Preguntas.add(pregunta);
                 session.put("Preguntas", Preguntas);
                 NumPregunta = (Integer) session.get("NumPregunta");
                 NumPregunta++;
                 session.put("NumPregunta", NumPregunta);
                 System.out.println("Pregunta False True");
-                System.out.println("Texto "+Preguntas.get(NumPregunta-2).getPregunta().get(0));
-                System.out.println("El tipo de pregunta es "+Preguntas.get(NumPregunta-2).getTipo());
-                System.out.println("La respuesta es "+Preguntas.get(NumPregunta-2).getRespuestaCorrecta());
+                System.out.println("Texto " + Preguntas.get(NumPregunta - 2).getPregunta().get(0));
+                System.out.println("El tipo de pregunta es " + Preguntas.get(NumPregunta - 2).getTipo());
+                System.out.println("La respuesta es " + Preguntas.get(NumPregunta - 2).getRespuestaCorrecta());
                 return "SUCCESS";
             case 3:
                 System.out.println("<<<Guardar Pregunta Columns>>>");
-                pregunta = crear.CrearColumns(pregunta,TextoPregunta,preguntas_M,respuestas_M);
+                pregunta = crear.CrearColumns(pregunta, TextoPregunta, preguntas_M, respuestas_M);
                 Preguntas.add(pregunta);
                 session.put("Preguntas", Preguntas);
                 NumPregunta = (Integer) session.get("NumPregunta");
@@ -124,7 +133,7 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
                 return "SUCCESS";
             case 4:
                 System.out.println("<<<Guardar Pregunta AUTOCOMPLETE>>>");
-                pregunta = crear.Crearautocomplete(pregunta,respuestas_M);
+                pregunta = crear.Crearautocomplete(pregunta, respuestas_M);
                 Preguntas.add(pregunta);
                 session.put("Preguntas", Preguntas);
                 NumPregunta = (Integer) session.get("NumPregunta");
@@ -137,20 +146,29 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
 
     }
 
-    public String GuardarContenido(){
+    public String GuardarContenido() {
         System.out.println(servletRequest.getSession().getServletContext().getRealPath("/"));
         String Path = servletRequest.getSession().getServletContext().getRealPath("/");
+        System.out.println("El grupo es " + GrupoNombre);
+        List<String> l = new ProfesorBD().Grupos(session.get("ID").toString()).get(1);
+        for (int i = 0; i < l.size(); i++) {
+            if (GrupoNombre.equals(l.get(i))) {
+                GrupoNombre = new ProfesorBD().Grupos(session.get("ID").toString()).get(0).get(i);
+                break;
+            }
+        }
+        System.out.println("El id del grupo es " + GrupoNombre);
         CrearPreguntas crear = new CrearPreguntas();
         Preguntas = (List<PreguntaProfesor>) session.get("Preguntas");
         Intro = session.get("Intro").toString();
-        grammar = (String[])session.get("grammar");
-        String[] conver = (String[])session.get("Conversacion");
+        grammar = (String[]) session.get("grammar");
+        String[] conver = (String[]) session.get("Conversacion");
         String ID = session.get("ID").toString();
         System.out.println("Guardar las preguntas");
-        crear.GuardarPreguntas(Preguntas,Path,ID,NombreContenido,Intro,grammar,conver);
+        crear.GuardarPreguntas(Preguntas, Path, ID, NombreContenido, Intro, grammar, conver,GrupoNombre);
         return "SUCCESS";
     }
-    
+
     @Override
     public void setSession(Map map) {
         session = map;
@@ -197,6 +215,15 @@ public class CrearContenidoControlador extends ActionSupport implements SessionA
         this.respuestas_M = respuestas_M;
     }
 
+    public List<String> getGrupos() {
+        return grupos;
+    }
 
-    
+    public void setGrupos(List<String> grupos) {
+        this.grupos = grupos;
+    }
+
+    public void setGrupoNombre(String GrupoNombre) {
+        this.GrupoNombre = GrupoNombre;
+    }
 }
