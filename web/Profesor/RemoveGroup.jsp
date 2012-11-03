@@ -55,7 +55,7 @@
                         str = str.substring(0, str.length-1);
                         console.log("La cadena es "+str);
                         $.post("http://localhost:8080/TT/Profesor/RemoveGroupRow.action", { foo:str } ,function(data){
-                            $("#ActualizacionesFarmacia").text(data);
+                            $("#Mensaje").html(data);
                         });
                         oTable.fnDeleteRow( anSelected[0] );
                     }
@@ -95,5 +95,9 @@
                 </s:iterator>
             </tbody>
         </table>
+        <br/>
+        <br/>
+        <br/>
+        <div id="Mensaje"></div>
     </body>
 </html>

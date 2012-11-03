@@ -34,6 +34,8 @@
         </action>
         
         <action name="RemoveGroupRow" class="Profesor.RemoveGroup" method="RemoveRow">
+            <result name="SUCCESS">/Profesor/DeleteRowGroupBien.jsp</result>
+            <result name="FAILURE">/Profesor/DeleteRowGroupMal.jsp</result>
         </action>
         
         <action name="CrearEjercicios" class="Profesor.CrearContenidoControlador" method="Dialogo">

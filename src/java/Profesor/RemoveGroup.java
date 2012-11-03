@@ -17,20 +17,21 @@ import org.apache.struts2.interceptor.SessionAware;
  *
  * @author Maximus
  */
-public class RemoveGroup extends ActionSupport implements SessionAware{
+public class RemoveGroup extends ActionSupport implements SessionAware {
+
     private Map session;//la session
     List<Group> grupos = new ArrayList<Group>();
     private String foo;
-    
+
     @Override
-    public String execute(){
+    public String execute() {
         session = ActionContext.getContext().getSession();
         ProfesorBD p = new ProfesorBD();
         grupos = p.GruposComplete(session.get("ID").toString());
-        return"SUCCESS";
+        return "SUCCESS";
     }
 
-    public void RemoveRow(){
+    public String RemoveRow() {
         session = ActionContext.getContext().getSession();
         System.out.println(foo);
         String[] f = foo.split(",");
@@ -39,25 +40,23 @@ public class RemoveGroup extends ActionSupport implements SessionAware{
         g.setNombre(f[1]);
         g.setNivel(f[2]);
         ProfesorBD p = new ProfesorBD();
-        p.DeleteGroup(g, session.get("ID").toString());
+        if (p.DeleteGroup(g, session.get("ID").toString())) {
+            return "SUCCESS";
+        } else {
+            return "FAILURE";
+        }
     }
-    
+
     @Override
     public void setSession(Map map) {
-        this.session=map;
+        this.session = map;
     }
 
     public List<Group> getGrupos() {
         return grupos;
     }
 
-    
-
     public void setFoo(String foo) {
         this.foo = foo;
     }
-
-
-    
-    
 }
