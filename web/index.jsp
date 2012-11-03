@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 <%-- 
     Document   : index
     Created on : Oct 15, 2012, 8:16:47 PM
@@ -82,8 +81,6 @@
             </div>
     </body>
 =======
-=======
->>>>>>> parent of 4449b2c... English register
 <%-- 
     Document   : index
     Created on : Oct 15, 2012, 8:16:47 PM
@@ -110,11 +107,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 	<div id="header">
-<<<<<<< HEAD
             <h1><center>ENGLISH VOICE SYSTEM SEGUNDO CAMBIO</center></h1>
-=======
-            <h1><center>ENGLISH VOICE SYSTEM mal</center></h1>
->>>>>>> parent of 4449b2c... English register
    <div align="right">
         <s:form action="Login" method="POST">
             <h2>Login</h2>
@@ -169,8 +162,5 @@
                 <p>English Voice 2012</p>
             </div>
     </body>
-<<<<<<< HEAD
 >>>>>>> SEGUNDO
-=======
->>>>>>> parent of 4449b2c... English register
 </html>
