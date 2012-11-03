@@ -65,7 +65,7 @@
                         <tr>
                             <td><s:password name="Password" label="Password" /></td>
                         </tr>
-                        <s:submit value="Register" />
+                        <s:submit value="Register Student" />
                     </s:form>
                 </tbody>
             </table>
