@@ -4,6 +4,7 @@
  */
 package BaseDeDatos;
 
+import ProfesorBeans.Group;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,11 +97,11 @@ public class ProfesorBD {
             con = ds.getConnection();
             // A partir de aquí utilice la conexión como lo hace habitualmente
             Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO contenido(Nombre,XMLContenido,ProfesorUsuarioMatricula,PageContent,GrupoID) VALUES('" + Nombre + "','" + XMLContenido + "','" + Matricula + "','" + PageContent + "', '"+ID_Grupo+"')");
-            ResultSet rs = st.executeQuery("SELECT contenido.ID FROM contenido WHERE contenido.Nombre='"+Nombre+"' AND contenido.XMLContenido='"+XMLContenido+"' AND contenido.GrupoID='"+ID_Grupo+"'");
-            if(rs.next()){
+            st.executeUpdate("INSERT INTO contenido(Nombre,XMLContenido,ProfesorUsuarioMatricula,PageContent,GrupoID) VALUES('" + Nombre + "','" + XMLContenido + "','" + Matricula + "','" + PageContent + "', '" + ID_Grupo + "')");
+            ResultSet rs = st.executeQuery("SELECT contenido.ID FROM contenido WHERE contenido.Nombre='" + Nombre + "' AND contenido.XMLContenido='" + XMLContenido + "' AND contenido.GrupoID='" + ID_Grupo + "'");
+            if (rs.next()) {
                 return rs.getString("ID");
-            }else{
+            } else {
                 return null;
             }
         } catch (Exception ex) {
@@ -117,9 +118,9 @@ public class ProfesorBD {
         }
     }
 
-    
     /**
      * Se inserta un nuevo grupo
+     *
      * @param Nombre del grupo
      * @param Nivel del grupo
      * @param Matricula del profesor
@@ -156,8 +157,7 @@ public class ProfesorBD {
             }
         }
     }
-    
-    
+
     public List<List<String>> Grupos(String ID) {
         Connection con = null;
         try {
@@ -170,12 +170,12 @@ public class ProfesorBD {
             con = ds.getConnection();
             // A partir de aquí utilice la conexión como lo hace habitualmente
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT grupo.ID,grupo.Nombre FROM profesor INNER JOIN grupo ON grupo.ProfesorUsuarioMatricula=profesor.UsuarioMatricula WHERE profesor.UsuarioMatricula='"+ID+"'");
+            ResultSet rs = st.executeQuery("SELECT grupo.ID,grupo.Nombre FROM profesor INNER JOIN grupo ON grupo.ProfesorUsuarioMatricula=profesor.UsuarioMatricula WHERE profesor.UsuarioMatricula='" + ID + "'");
             List<String> list1 = new ArrayList<String>();
             List<String> list2 = new ArrayList<String>();
             list1.add("");
             list2.add("Selecciona Grupo");
-            while(rs.next()){
+            while (rs.next()) {
                 list1.add(rs.getString("ID"));
                 list2.add(rs.getString("Nombre"));
             }
@@ -196,15 +196,16 @@ public class ProfesorBD {
             }
         }
     }
-    
+
     /**
      * Inserta la pregunta en la bd
+     *
      * @param ContenidoID
      * @param Tipo
      * @param XML
-     * @param Matricula 
+     * @param Matricula
      */
-    public void InsertPregunta(String ContenidoID, String Tipo, String XML ,String Matricula) {
+    public void InsertPregunta(String ContenidoID, String Tipo, String XML, String Matricula) {
         Connection con = null;
         try {
             // Obtiene el contexto JNDI
@@ -216,9 +217,97 @@ public class ProfesorBD {
             con = ds.getConnection();
             // A partir de aquí utilice la conexión como lo hace habitualmente
             Statement st = con.createStatement();
-            int rs = st.executeUpdate("INSERT INTO preguntas(ContenidoID,Tipo,XMLPregunta,ProfesorUsuarioMatricula) VALUES('"+ContenidoID+"','"+Tipo+"','"+XML+"','"+Matricula+"')");
+            int rs = st.executeUpdate("INSERT INTO preguntas(ContenidoID,Tipo,XMLPregunta,ProfesorUsuarioMatricula) VALUES('" + ContenidoID + "','" + Tipo + "','" + XML + "','" + Matricula + "')");
         } catch (Exception ex) {
             System.out.println(ex);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+
+    /**
+     * La informacion de los grupos
+     *
+     * @param ID del profesor
+     * @return la lista con ID,Nombre,Nivel
+     */
+    public List<Group> GruposComplete(String ID) {
+        Connection con = null;
+        List<String> Tipos = new ArrayList<String>();
+        Tipos.add("Nivel Principiante");
+        Tipos.add("Nivel Básico");
+        Tipos.add("Nivel Intermedio");
+        Tipos.add("Nivel Avanzado");
+        Tipos.add("Conversacional");
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT grupo.ID,grupo.Nombre,grupo.Nivel FROM profesor INNER JOIN grupo ON grupo.ProfesorUsuarioMatricula=profesor.UsuarioMatricula WHERE profesor.UsuarioMatricula='" + ID + "'");
+            List<Group> lg = new ArrayList<Group>();
+            
+            while (rs.next()) {
+                Group g = new Group();
+                g.setID(rs.getString("ID"));
+                g.setNombre(rs.getString("Nombre"));
+                int i =Integer.parseInt(rs.getString("Nivel"));
+                g.setNivel(Tipos.get(i-1));
+                lg.add(g);
+            }
+            return lg;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    /**
+     * Borra el grupo
+     * @param g el grupo
+     * @param ID del profe
+     * @return si se llevo a cabo bien
+     */
+    public boolean DeleteGroup(Group g,String ID) {
+        Connection con = null;
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            int rs = st.executeUpdate("DELETE FROM grupo WHERE grupo.ProfesorUsuarioMatricula='"+ID+"' AND grupo.ID='"+g.getID()+"'");
+            boolean respuesta = false;
+            if (rs > 0) {
+                respuesta = true;
+            }
+            return respuesta;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
         } finally {
             try {
                 if (con != null) {

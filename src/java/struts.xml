@@ -29,6 +29,13 @@
             <result name="SUCCESS">/Profesor/CrearConversacion.jsp</result>
         </action>
         
+        <action name="RemoveGroup" class="Profesor.RemoveGroup" >
+            <result name="SUCCESS">/Profesor/RemoveGroup.jsp</result>
+        </action>
+        
+        <action name="RemoveGroupRow" class="Profesor.RemoveGroup" method="RemoveRow">
+        </action>
+        
         <action name="CrearEjercicios" class="Profesor.CrearContenidoControlador" method="Dialogo">
             <result name="SUCCESS">/Profesor/CrearContenido.jsp</result>
         </action>
