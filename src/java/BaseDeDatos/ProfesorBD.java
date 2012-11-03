@@ -49,7 +49,7 @@ public class ProfesorBD {
             }
         }
     }
-    
+
     public String NumContenido(String ID) {
         Connection con = null;
         try {
@@ -81,9 +81,8 @@ public class ProfesorBD {
             }
         }
     }
-    
-    
-    public void InsertContenido(String Nombre,String XMLContenido,String Matricula,String PageContent){
+
+    public void InsertContenido(String Nombre, String XMLContenido, String Matricula, String PageContent) {
         Connection con = null;
         try {
             // Obtiene el contexto JNDI
@@ -95,13 +94,53 @@ public class ProfesorBD {
             con = ds.getConnection();
             // A partir de aquí utilice la conexión como lo hace habitualmente
             Statement st = con.createStatement();
-            int rs = st.executeUpdate("INSERT INTO contenido(Nombre,XMLContenido,ProfesorUsuarioMatricula,PageContent) VALUES('"+Nombre+"','"+XMLContenido+"','"+Matricula+"','"+PageContent+"')");
+            int rs = st.executeUpdate("INSERT INTO contenido(Nombre,XMLContenido,ProfesorUsuarioMatricula,PageContent) VALUES('" + Nombre + "','" + XMLContenido + "','" + Matricula + "','" + PageContent + "')");
             boolean respuesta = false;
-            if (rs>0) {
+            if (rs > 0) {
                 respuesta = true;
             }
         } catch (Exception ex) {
             System.out.println(ex);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+
+    
+    /**
+     * Se inserta un nuevo grupo
+     * @param Nombre del grupo
+     * @param Nivel del grupo
+     * @param Matricula del profesor
+     * @return true si se hizo correctamente
+     */
+    public boolean InsertGrupo(String Nombre, String Nivel, String Matricula) {
+        Connection con = null;
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            int rs = st.executeUpdate("INSERT INTO grupo(ProfesorUsuarioMatricula,Nombre,Nivel) VALUES('" + Matricula + "','" + Nombre + "','" + Nivel + "')");
+            boolean respuesta = false;
+            if (rs > 0) {
+                respuesta = true;
+            }
+            return respuesta;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
         } finally {
             try {
                 if (con != null) {

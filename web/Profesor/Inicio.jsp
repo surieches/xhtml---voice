@@ -32,6 +32,7 @@
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Profesor/IntroContenido.jsp">Create Content</a></li>
                     <li><a href="Profesor/#">Remove Content</a></li>
+                    <li><a href="Profesor/AltaGrupo.jsp">Create Group</a></li>
                     <li><a href="Profesor/#">Help</a></li>
                 </ul>
             </div>
