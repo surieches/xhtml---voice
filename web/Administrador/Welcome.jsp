@@ -17,7 +17,7 @@
     </head>
     <body class="body">
 
-        <h1>Des7cription</h1>
+        <h1>Description bien</h1>
 
         <s:label value="This module is the primary caregiver to provide additions, deletions and changes to users
                  who are mainly students and teachers."></s:label>
