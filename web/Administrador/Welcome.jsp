@@ -10,7 +10,7 @@
 <html>
     <head>
 
-        <title>Insertar Registros</title>
+        <title>Insertar Registro</title>
         <%--<link href="Estilos/estilo-general.css" rel="stylesheet" type="text/css" />
         <link href="Estilos/estilo-menu.css" rel="stylesheet" type="text/css" />--%>
 
