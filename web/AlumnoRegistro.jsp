@@ -33,39 +33,39 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td><s:textfield name="Nombre" label="Nombre" /></td>
+                            <td><s:textfield name="Nombre" label="Name" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Appat" label="Appat" /></td>
+                            <td><s:textfield name="Appat" label="Last Name" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Apmat" label="Apmat" /></td>
+                            <td><s:textfield name="Apmat" label="Second Name" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Fenac" label="Fenac" id="fecha"/></td>
+                            <td><s:textfield name="Fenac" label="Date of Birth" id="fecha"/></td>
                         </tr>
                         <tr>
                             <td><s:textfield name="Curp" label="Curp" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Calle" label="Calle" /></td>
+                            <td><s:textfield name="Calle" label="Street" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Numero" label="Numero" /></td>
+                            <td><s:textfield name="Numero" label="Number" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Delegacion" label="Delegacion" /></td>
+                            <td><s:textfield name="Delegacion" label="Town hall" /></td>
                         </tr>
                         <tr>
-                            <td<s:textfield name="Pais" label="Pais" /></td>
+                            <td<s:textfield name="Pais" label="Country" /></td>
                         </tr>
                         <tr>
-                            <td><s:textfield name="Email" label="Email" /></td>
+                            <td><s:textfield name="Email" label="E-mail" /></td>
                         </tr>
                         <tr>
                             <td><s:password name="Password" label="Password" /></td>
                         </tr>
-                        <s:submit value="Enviar" />
+                        <s:submit value="Register" />
                     </s:form>
                 </tbody>
             </table>
