@@ -34,7 +34,7 @@
                     <li><a href="Profesor/AltaGrupo.jsp">Create Group</a></li>
                     <li><a href="Profesor/RemoveContents.action">Remove Content</a></li>
                     <li><a href="Profesor/RemoveGroup.action">Remove Group</a></li>
-                    <li><a href="Profesor/RemoveGroup.action">Calificaciones</a></li>
+                    <li><a href="Profesor/Qualifications.action">Qualifications</a></li>
                     <li><a href="Profesor/#">Help</a></li>
                 </ul>
             </div>

@@ -25,6 +25,11 @@
         <action name="CrearGrammar" class="Profesor.CrearContenidoControlador" >
             <result name="SUCCESS">/Profesor/CreateGrammar.jsp</result>
         </action>
+        
+        <action name="Qualifications" class="Profesor.Qualifys" >
+            <result name="SUCCESS">/Profesor/Qualifys.jsp</result>
+        </action>
+        
         <action name="CrearContenido" class="Profesor.CrearContenidoControlador" method="Grammar">
             <result name="SUCCESS">/Profesor/CrearConversacion.jsp</result>
         </action>

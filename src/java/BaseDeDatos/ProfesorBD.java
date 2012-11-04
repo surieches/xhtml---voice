@@ -4,6 +4,7 @@
  */
 package BaseDeDatos;
 
+import ProfesorBeans.Calificaciones;
 import ProfesorBeans.Contenido;
 import ProfesorBeans.Group;
 import java.sql.Connection;
@@ -397,6 +398,64 @@ public class ProfesorBD {
         } catch (Exception ex) {
             System.out.println(ex);
             return false;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    /**
+     * Las calificaciones
+     * @param ID la id del profesor
+     * @return la lista de calificaciones con sus grupos
+     */
+    public List<Calificaciones> CalificacionesComplete(String ID) {
+        Connection con = null;
+        List<String> Tipos = new ArrayList<String>();
+        Tipos.add("Nivel Principiante");
+        Tipos.add("Nivel Básico");
+        Tipos.add("Nivel Intermedio");
+        Tipos.add("Nivel Avanzado");
+        Tipos.add("Conversacional");
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT grupo.Nombre AS NombreGrupo,grupo.Nivel AS Nivel,contenido.Nombre AS NombreContenido,"
+                    + "contenido.PageContent AS Pagina,calificaciones.Calificacion AS Calificacion,usuario.APMat AS APMat,usuario.APPat AS APPat,"
+                    + "usuario.Nombre AS AlumnoNombre FROM profesor INNER JOIN grupo ON grupo.ProfesorUsuarioMatricula= profesor.UsuarioMatricula"
+                    + " INNER JOIN contenido ON contenido.ProfesorUsuarioMatricula= profesor.UsuarioMatricula INNER JOIN calificaciones ON calificaciones.ContenidoID=contenido.ID "
+                    + "INNER JOIN alumno ON alumno.UsuarioMatricula = calificaciones.AlumnoUsuarioMatricula INNER JOIN usuario ON usuario.Matricula = alumno.UsuarioMatricula "
+                    + "WHERE profesor.UsuarioMatricula='"+ID+"'");
+            List<Calificaciones> lg = new ArrayList<Calificaciones>();
+            while (rs.next()) {
+                Calificaciones cal = new Calificaciones();
+                cal.setNombregrupo(rs.getString("NombreGrupo"));
+                int i =Integer.parseInt(rs.getString("Nivel"));
+                cal.setNivel(Tipos.get(i-1));
+                cal.setNombreContenido(rs.getString("NombreContenido"));
+                cal.setPagina(rs.getString("Pagina"));
+                cal.setCalificacion(rs.getString("Calificacion"));
+                cal.setAppat(rs.getString("APPat"));
+                cal.setApmat(rs.getString("APMat"));
+                cal.setAlumnoNombre(rs.getString("AlumnoNombre"));
+                lg.add(cal);
+            }
+            return lg;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
         } finally {
             try {
                 if (con != null) {

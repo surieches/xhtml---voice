@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Remove Group</title>
         <style type="text/css" title="currentStyle">
             @import "../Estilos/demo_page.css";
             @import "../Estilos/demo_table.css";

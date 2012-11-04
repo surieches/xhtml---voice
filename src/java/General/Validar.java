@@ -27,25 +27,33 @@ public class Validar extends ActionSupport implements SessionAware {
     public String execute() {
         Login login = new Login();
         session = ActionContext.getContext().getSession();
-        if(session.get("ID").toString()!=null){
-        int i = (Integer) session.get("Tipo");
-        Nombre = session.get("Nombre").toString();
-        switch (i) {
-                case 0:
-                    return "ALUMNO";
-                case 1:
-                    return "PROFESOR";
-                case 2:
-                    return "ADMIN";
+        if (session.get("ID") == null) {
+            if (login.Validar(Matricula, Password)) {
+
+                session.put("Tipo", login.getTipo());
+                session.put("Nombre", login.getNombre());
+                session.put("ID", login.getID());
+                Nombre = login.getNombre();
+                switch (login.getTipo()) {
+                    case 0:
+                        return "ALUMNO";
+                    case 1:
+                        return "PROFESOR";
+                    case 2:
+                        return "ADMIN";
+                    default:
+                        Mensaje = "Revise Password/Usuario";
+                        return "FAILURE";
+                }
+            } else {
+                Mensaje = "Revise Password/Usuario";
+                return "FAILURE";
             }
-        }
-        if (login.Validar(Matricula, Password)) {
-            
-            session.put("Tipo", login.getTipo());
-            session.put("Nombre", login.getNombre());
-            session.put("ID", login.getID());
-            Nombre = login.getNombre();
-            switch (login.getTipo()) {
+
+        } else {
+            int i = (Integer) session.get("Tipo");
+            Nombre = session.get("Nombre").toString();
+            switch (i) {
                 case 0:
                     return "ALUMNO";
                 case 1:
@@ -53,12 +61,8 @@ public class Validar extends ActionSupport implements SessionAware {
                 case 2:
                     return "ADMIN";
                 default:
-                    Mensaje = "Revise Password/Usuario";
                     return "FAILURE";
             }
-        } else {
-            Mensaje = "Revise Password/Usuario";
-            return "FAILURE";
         }
 
     }
