@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Remove Group</title>
         <style type="text/css" title="currentStyle">
-            @import "../Estilos/demo_page.css";
+            @import "../Estilos/jquery-ui.css";
             @import "../Estilos/demo_table.css";
         </style>
         <script type="text/javascript" language="javascript" src="../Scripts/jquery.js"></script>
@@ -62,7 +62,10 @@
                 } );
      
                 /* Init the table */
-                oTable = $('#tabla').dataTable();
+                oTable = $('#tabla').dataTable( {
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                });
             } );
  
  
