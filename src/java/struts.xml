@@ -35,9 +35,14 @@
         
         <action name="RemoveGroupRow" class="Profesor.RemoveGroup" method="RemoveRow">
         </action>
-
+        
         <action name="CrearEjercicios" class="Profesor.CrearContenidoControlador" method="Dialogo">
             <result name="SUCCESS">/Profesor/CrearContenido.jsp</result>
+        </action>
+        
+        <action name="InsertarGrupo" class="Profesor.CreateGroup" >
+            <result name="SUCCESS">/Profesor/InsertoContenidoBien.jsp</result>
+            <result name="FAILURE">/Profesor/InsertoContenidoMal.jsp</result>
         </action>
         
         <action name="AgregarPregunta" class="Profesor.CrearContenidoControlador" method="AgregarPregunta">

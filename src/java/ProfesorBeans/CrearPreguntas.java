@@ -153,12 +153,12 @@ public class CrearPreguntas {
      * @param NombreContenido El nombre del contenido
      * @param ID el id del profesor
      */
-    public void GuardarPreguntas(List<PreguntaProfesor> Preguntas, String Path, String ID, String NombreContenido, String Lectura, String[] grammar , String[] conver) {
+    public void GuardarPreguntas(List<PreguntaProfesor> Preguntas, String Path, String ID, String NombreContenido, String Lectura, String[] grammar , String[] conver , String ID_Grupo) {
         bd = new ProfesorBD();//se instancia la bd
         int Num = Integer.parseInt(bd.NumPreguntas(ID)) + 1;//el numero de peguntas que hay
         int NumContenido = Integer.parseInt(bd.NumContenido(ID)) + 1;//el numero del contenido
         String ContentName = "L" + ID + NumContenido + ".xhtml";//el path de la pagina principal del contenido
-        bd.InsertContenido(NombreContenido, "C" + ID + NumContenido + ".xml", ID, ContentName);//insertamos el contenido
+        String ID_Contenido = bd.InsertContenido(NombreContenido, "C" + ID + NumContenido + ".xml", ID, ContentName,ID_Grupo);//insertamos el contenido
         System.out.println("El numero de preguntas anteriores es" + Num);
         System.out.println("El numero de preguntas es" + Preguntas.size());
         System.out.println("El nombre del contenido es " + NombreContenido);
@@ -186,6 +186,7 @@ public class CrearPreguntas {
                     xml = GuardarPreguntaAutocomplete(Path, pregunta, Num, ID);
                     break;
             }
+            bd.InsertPregunta(ID_Contenido, "Pregunta", xml, ID);
             Num++;
             xmls.add(xml);
         }

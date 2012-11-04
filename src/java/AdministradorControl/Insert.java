@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package AdministradorControl;
 
 /**
@@ -21,21 +25,14 @@ public class Insert extends ActionSupport {
 
             Statement stmt = null;
             int matr = getMatricula();
-            String tipo = getTipo();
+            int tipo = getTipo();
             String pws = getPassword();
             String nom = getNombre();
             String pat = getApPat();
             String mate = getApMat();
             stmt = con.createStatement();
-            if(tipo.equals("Professor")){
-            tipo2=1;
-            }else if(tipo.equals("Student")){
-            tipo2=0;
-            }else if(tipo.equals("Administrator")){
-                tipo2=2;
-            }
             int val = stmt.executeUpdate("INSERT into usuario(Matricula,Tipo,Password,Nombre,ApPat,ApMat) "
-                    + "VALUES('" + matr + "' ,'" + tipo2 + "','" + pws + "','" + nom + "'"
+                    + "VALUES('" + matr + "' ,'" + tipo + "','" + pws + "','" + nom + "'"
                     + ",'" + pat + "','" + mate + "' )");
             if (val == 0) {
                 return ERROR;
@@ -47,8 +44,7 @@ public class Insert extends ActionSupport {
         return null;
     }
     private int Matricula;
-    private int tipo2;
-    private String Tipo;
+    private int Tipo;
     private String Password;
     private String Nombre;
     private String ApPat;
@@ -63,11 +59,11 @@ public class Insert extends ActionSupport {
         this.Matricula = Matricula;
     }
 
-    public String getTipo() {
+    public int getTipo() {
         return Tipo;
     }
 
-    public void setTipo(String Tipo) {
+    public void setTipo(int Tipo) {
         this.Tipo = Tipo;
     }
 
