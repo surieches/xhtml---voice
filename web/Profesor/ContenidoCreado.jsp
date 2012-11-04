@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Content Create Succesfuly</h1>
+        <button onclick="location.href='/TT/Login.action'">Regresar</button>
     </body>
 </html>

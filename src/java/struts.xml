@@ -33,6 +33,14 @@
             <result name="SUCCESS">/Profesor/RemoveGroup.jsp</result>
         </action>
         
+        <action name="RemoveContents" class="Profesor.RemoveContents" >
+            <result name="SUCCESS">/Profesor/RemoveContent.jsp</result>
+        </action>
+        <action name="RemoveContentsRow" class="Profesor.RemoveContents" method="RemoveRow">
+            <result name="SUCCESS">/Profesor/DeleteRowContentBien.jsp</result>
+            <result name="FAILURE">/Profesor/DeleteRowContentMal.jsp</result>
+        </action>
+        
         <action name="RemoveGroupRow" class="Profesor.RemoveGroup" method="RemoveRow">
             <result name="SUCCESS">/Profesor/DeleteRowGroupBien.jsp</result>
             <result name="FAILURE">/Profesor/DeleteRowGroupMal.jsp</result>

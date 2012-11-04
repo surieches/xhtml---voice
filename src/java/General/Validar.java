@@ -26,8 +26,21 @@ public class Validar extends ActionSupport implements SessionAware {
     @Override
     public String execute() {
         Login login = new Login();
+        session = ActionContext.getContext().getSession();
+        if(session.get("ID").toString()!=null){
+        int i = (Integer) session.get("Tipo");
+        Nombre = session.get("Nombre").toString();
+        switch (i) {
+                case 0:
+                    return "ALUMNO";
+                case 1:
+                    return "PROFESOR";
+                case 2:
+                    return "ADMIN";
+            }
+        }
         if (login.Validar(Matricula, Password)) {
-            session = ActionContext.getContext().getSession();
+            
             session.put("Tipo", login.getTipo());
             session.put("Nombre", login.getNombre());
             session.put("ID", login.getID());

@@ -5,4 +5,4 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-Fallo la eliminación
+Fallo la eliminación,verifique que no tenga ningún contenido creado.

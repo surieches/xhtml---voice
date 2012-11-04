@@ -4,6 +4,7 @@
  */
 package BaseDeDatos;
 
+import ProfesorBeans.Contenido;
 import ProfesorBeans.Group;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -318,4 +319,93 @@ public class ProfesorBD {
             }
         }
     }
+    
+    /**
+     * Regresa el contenido de los grupos
+     * @param ID la id del profesor
+     * @return lista de contenidos
+     */
+    public List<Contenido> ContenidosComplete(String ID) {
+        Connection con = null;
+        List<String> Tipos = new ArrayList<String>();
+        Tipos.add("Nivel Principiante");
+        Tipos.add("Nivel Básico");
+        Tipos.add("Nivel Intermedio");
+        Tipos.add("Nivel Avanzado");
+        Tipos.add("Conversacional");
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT contenido.ID,contenido.Nombre,contenido.PageContent,grupo.Nombre AS NombreGrupo,grupo.Nivel FROM contenido INNER JOIN grupo ON grupo.ID = contenido.GrupoID WHERE grupo.ProfesorUsuarioMatricula='"+ID+"'");
+            List<Contenido> lg = new ArrayList<Contenido>();
+            while (rs.next()) {
+                Contenido g = new Contenido();
+                g.setID(rs.getString("ID"));
+                g.setNombre(rs.getString("Nombre"));
+                int i =Integer.parseInt(rs.getString("Nivel"));
+                g.setNivel(Tipos.get(i-1));
+                g.setPageContent(rs.getString("PageContent"));
+                g.setGrupoNombre(rs.getString("NombreGrupo"));
+                lg.add(g);
+            }
+            return lg;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    /**
+     * elimina un contenido
+     * @param g el contenido
+     * @param ID el id del profesor
+     * @return true si se llevo bien a cabo
+     */
+    public boolean DeleteContent(Contenido g,String ID) {
+        Connection con = null;
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            int rs = st.executeUpdate("DELETE FROM contenido WHERE contenido.ProfesorUsuarioMatricula='"+ID+"' AND contenido.ID='"+g.getID()+"'");
+            boolean respuesta = false;
+            if (rs > 0) {
+                respuesta = true;
+            }
+            return respuesta;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
 }

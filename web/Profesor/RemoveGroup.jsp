@@ -99,5 +99,6 @@
         <br/>
         <br/>
         <div id="Mensaje"></div>
+        <button onclick="location.href='/TT/Login.action'">Regresar</button>
     </body>
 </html>
