@@ -17,7 +17,7 @@
         
         <s:form action="GuardarPregunta" namespace="/Profesor">
             <s:textfield name="TextoPregunta" label="Pregunta"/>
-            <s:radio name="Respuesta" list="#{'1':'True','2':'False'}" value="1" />
+            <s:radio name="Respuesta" list="#'1':'True','2':'False'" value="1" />
             <s:submit value="Agregar"/>
         </s:form>
     </body>

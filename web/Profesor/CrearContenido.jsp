@@ -18,14 +18,13 @@
         <p>Escoge el tipo de la pregunta</p>
 
         <s:form action="AgregarPregunta" namespace="/Profesor">
-            <s:radio name="TipoPregunta" list="#{'1':'Multiple Choice','2':'False or True','3':'Columns Relations','4':'Autocomplete'}" value="1" />
+            <s:radio name="TipoPregunta" list="#'1':'Multiple Choice','2':'False or True','3':'Columns Relations','4':'Autocomplete'" value="1" />
             <s:submit value="Agregar"/>
         </s:form>
 
         <s:if test="%{NumPregunta>1}">
             <s:form action="GuardarContenido" namespace="/Profesor">
                 <s:textfield name="NombreContenido" label="Nombre del Contenido"/> 
-                <s:select name="GrupoNombre" list="grupos"  label="Grupo"/>
                 <s:submit value="Guardar"/>
             </s:form>
         </s:if>

@@ -30,7 +30,6 @@ public class Validar extends ActionSupport implements SessionAware {
             session = ActionContext.getContext().getSession();
             session.put("Tipo", login.getTipo());
             session.put("Nombre", login.getNombre());
-            session.put("ID", login.getID());
             Nombre = login.getNombre();
             switch (login.getTipo()) {
                 case 0:

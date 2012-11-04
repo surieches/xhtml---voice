@@ -23,10 +23,11 @@
                 <div class="form-sub-title">It´s free and anyone can join</div>
             <s:form action="agregar" method="POST" validate="true">
                 <hr>
+                
                 <table>
                     <tbody>
                         <tr>
-                            <td><s:textfield name="Tipo" label="Tipo" size="30" maxLength="30"/></td>
+                            <td>  <s:select accesskey="false" list="{'Professor','Pupil','Administrator'}" name="Tipo" label="User Type"/> </td>
                         </tr>
                 <s:textfield name="Password" label="Password"/>
                 <s:textfield name="Nombre" label="Nombre"/>
