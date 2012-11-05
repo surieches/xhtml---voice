@@ -37,7 +37,7 @@
                     <li><a href="Login.action">Home</a></li>
                     <li><a href="Alumno/RegisterToGroup.action">Register to Group</a></li>
                     <li><a href="Alumno/Contenidos.action">Contents</a></li>
-                    <li><a href="#">Evaluation</a></li>
+                    <li><a href="Alumno/Calificaciones.action">Evaluation</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>
                 <p>ESCUELA SUPERIOR DE CÓMPUTO "ENGLISH VOICE 2012"</p>

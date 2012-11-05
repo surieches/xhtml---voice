@@ -4,6 +4,7 @@
  */
 package BaseDeDatos;
 
+import AlumnoBeans.CalificacionesA;
 import AlumnoBeans.ContenidosVer;
 import AlumnoBeans.GruposR;
 import java.sql.Connection;
@@ -144,6 +145,89 @@ public class AlumnoBD {
                 cal.setContenidoNombre(rs.getString("ContenidoNombre"));
                 cal.setContenidoID(rs.getString("ContenidoID"));
                 cal.setPagina(rs.getString("Pagina"));
+                lg.add(cal);
+            }
+            return lg;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    /**
+     * inserta la calificacion del contenido
+     * @param Calificacion del contenido
+     * @param Matricula del alumno
+     * @param ID_Contenido del contenido
+     * @return true si se llevo a cabo
+     */
+    public boolean InsertCalificacion(String Calificacion,String Matricula, String ID_Contenido) {
+        Connection con = null;
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            int r = st.executeUpdate("INSERT INTO calificaciones(ContenidoID,AlumnoUsuarioMatricula,Calificacion) VALUES('"+ID_Contenido+"','"+Matricula+"','"+Calificacion+"')");
+            if (r>0) {
+                return true;
+            } else {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+    
+    public List<CalificacionesA> CalificacionesCompleteAlumno(String ID) {
+        Connection con = null;
+        List<String> Tipos = new ArrayList<String>();
+        Tipos.add("Nivel Principiante");
+        Tipos.add("Nivel Básico");
+        Tipos.add("Nivel Intermedio");
+        Tipos.add("Nivel Avanzado");
+        Tipos.add("Conversacional");
+        try {
+            // Obtiene el contexto JNDI
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Obtiene el DataSource del contexto
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/englishvoice");
+            // Se obtiene una conexion al DataSource
+            con = ds.getConnection();
+            // A partir de aquí utilice la conexión como lo hace habitualmente
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT grupo.Nombre AS NombreGrupo,grupo.Nivel AS Nivel,contenido.Nombre AS NombreContenido,calificaciones.Calificacion AS Calificacion FROM alumno INNER JOIN calificaciones ON calificaciones.AlumnoUsuarioMatricula=alumno.UsuarioMatricula INNER JOIN contenido ON contenido.ID=calificaciones.ContenidoID INNER JOIN grupo ON grupo.ID = contenido.GrupoID WHERE alumno.UsuarioMatricula='"+ID+"'");
+            List<CalificacionesA> lg = new ArrayList<CalificacionesA>();
+            while (rs.next()) {
+                CalificacionesA cal = new CalificacionesA();
+                cal.setNombreGrupo(rs.getString("NombreGrupo"));
+                int i =Integer.parseInt(rs.getString("Nivel"));
+                cal.setNivel(Tipos.get(i-1));
+                cal.setNombreContenido(rs.getString("NombreContenido"));
+                cal.setCalificacion(rs.getString("Calificacion"));
                 lg.add(cal);
             }
             return lg;

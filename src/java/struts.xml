@@ -156,6 +156,15 @@
         <action name="Contenidos" class="Alumno.Contenidos" >
             <result name="SUCCESS">/Alumno/ListaContenidos.jsp</result>
         </action>
+        
+        <action name="Qualify" class="Alumno.Qualify" >
+            <result name="SUCCESS">/Alumno/RegistroCalificacionBien.jsp</result>
+            <result name="FAILURE">/Alumno/RegistroCalificacionMal.jsp</result>
+        </action>
+        
+        <action name="Calificaciones" class="Alumno.CalificacionesVer" >
+            <result name="SUCCESS">/Alumno/CalificacionesVer.jsp</result>
+        </action>
     
     </package>
 </struts>

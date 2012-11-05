@@ -190,7 +190,7 @@ public class CrearPreguntas {
             Num++;
             xmls.add(xml);
         }
-        xml = CrearXMLPrincipal(Path,Preguntas,ID,NumContenido,xmls);
+        xml = CrearXMLPrincipal(Path,Preguntas,ID,NumContenido,xmls,ID_Contenido);
         
         new xhtmlEjercicios(Preguntas, xml, Path, "C" + ID + NumContenido + ".xhtml").Guardar();
         System.out.println(xmls.toString());
@@ -306,9 +306,10 @@ public class CrearPreguntas {
      * @param ID el id del usuario
      * @param NumContenido el numero del contenido
      * @param xmls los xmls generados de las preguntas
+     * @param ID_Contenido del contenido
      * @return el nombre del xml que genero
      */
-    private String CrearXMLPrincipal(String Path, List<PreguntaProfesor> Preguntas, String ID, int NumContenido,List<String> xmls) {
+    private String CrearXMLPrincipal(String Path, List<PreguntaProfesor> Preguntas, String ID, int NumContenido,List<String> xmls,String ID_Contenido) {
         try {
             List<String> plantillas = new ArrayList<String>();
             plantillas.add("Plantillas");
@@ -322,6 +323,7 @@ public class CrearPreguntas {
             EXAMEN.setAttribute(new Attribute("DESCRIPCION", "Examen"));
             EXAMEN.setAttribute(new Attribute("BARRA", "Barra_de_navegacion.swf"));
             EXAMEN.setAttribute(new Attribute("FINAL", "Final.swf"));
+            EXAMEN.setAttribute(new Attribute("IDContenido", ID_Contenido));
             Document doc = new Document(EXAMEN);
             
             System.out.println("xmls "+xmls.toString());

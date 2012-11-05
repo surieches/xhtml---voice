@@ -4,6 +4,7 @@
  */
 package Alumno;
 
+import BaseDeDatos.AlumnoBD;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
@@ -22,7 +23,15 @@ public class Qualify extends ActionSupport implements SessionAware {
     @Override
     public String execute() {
         session = ActionContext.getContext().getSession();
-        return "SUCCESS";
+        AlumnoBD al = new AlumnoBD();
+        System.out.println("El Alumno es "+session.get("ID").toString());
+        System.out.println("El contenido es "+ID);
+        System.out.println("La calificacion es "+Cal);
+        if (al.InsertCalificacion(Cal, session.get("ID").toString(), ID)) {
+            return "SUCCESS";
+        } else {
+            return "FAILURE";
+        }
     }
 
     @Override
@@ -37,6 +46,4 @@ public class Qualify extends ActionSupport implements SessionAware {
     public void setID(String ID) {
         this.ID = ID;
     }
-    
-    
 }
