@@ -45,12 +45,8 @@
                             required:true,
                             email:true
                         }
-                    },
-                    messages:{
-                        
-                        
-                        
                     }
+                    
 
                 });
             });
