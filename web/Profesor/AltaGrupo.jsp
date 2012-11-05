@@ -32,9 +32,10 @@
                 <s:select name="Nivel" list="#{'1':'Nivel Principiante','2':'Nivel Básico','3':'Nivel Intermedio','4':'Nivel Avanzado','5':'Conversacional'}" value="1" />
             </s:form>
             <button id="submitform">Register Group</button>
+        </div>
             <br/>
             <br/>
             <button onclick="location.href='/TT/Login.action'">Regresar</button>
-        </div>
+        
     </body>
 </html>

@@ -25,7 +25,7 @@
         <h1><s:label value="Hello %{Nombre}!"></s:label></h1>
         <h1>Welcome a English Voice!</h1>
             <div align="right">
-                <s:form action="cerrarSesion" method="POST">
+                <s:form action="Close" method="POST">
                 <s:submit align="center" value="Cerrar Sesion"></s:submit>
             </s:form>
             </div>
@@ -34,8 +34,9 @@
             <div id="izquierda">
                 <h2>Students Menu</h2>
                 <ul>
-                    <li><a href="index.jsp">Home</a></li>
-                    <li><a href="#">Contents</a></li>
+                    <li><a href="Login.action">Home</a></li>
+                    <li><a href="Alumno/RegisterToGroup.action">Register to Group</a></li>
+                    <li><a href="Alumno/Contenidos.action">Contents</a></li>
                     <li><a href="#">Evaluation</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>

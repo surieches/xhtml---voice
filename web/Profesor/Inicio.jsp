@@ -20,7 +20,7 @@
         <h1><s:label value="Hello Teacher %{Nombre}!"></s:label></h1>
         <h1>Welcome a English Voice!</h1>
             <div align="right">
-                <s:form action="cerrarSesion" method="POST">
+            <s:form action="Close" method="POST">
                 <s:submit align="center" value="Close Session"></s:submit>
             </s:form>
             </div>

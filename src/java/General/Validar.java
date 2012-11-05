@@ -66,6 +66,12 @@ public class Validar extends ActionSupport implements SessionAware {
         }
 
     }
+    
+    public String CerrarSesion(){
+        session = ActionContext.getContext().getSession();
+        session.clear();
+        return "SUCCESS";
+    }
 
     public String getMatricula() {
         return Matricula;

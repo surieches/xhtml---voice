@@ -19,6 +19,10 @@
             <result name="ALUMNO">/Alumno/Inicio.jsp</result>
             <result name="FAILURE">/index.jsp</result>
         </action>
+        
+        <action name="Close" class="General.Validar" method="CerrarSesion">
+            <result name="SUCCESS">/index.jsp</result>
+        </action>
     </package>
     
     <package name="Profesor" namespace="/Profesor" extends="struts-default">
@@ -134,5 +138,24 @@
             <result name="ERROR">/Administrador/Error.jsp</result>
             <result>/Administrador/ExitoAct.jsp</result>
         </action>
+    </package>
+    
+    
+    <!-- paquete de alumno. -->
+    <package name="Alumno" namespace="/Alumno" extends="struts-default">
+        
+        <action name="RegisterToGroup" class="Alumno.RegisterToGroup" >
+            <result name="SUCCESS">/Alumno/RegisterToGroup.jsp</result>
+        </action>
+        
+        <action name="RegisterToGroupAlta" class="Alumno.RegisterToGroup" method="InscribirGrupo" >
+            <result name="SUCCESS">/Alumno/RegisterToGroupBien.jsp</result>
+            <result name="FAILURE">/Alumno/RegisterToGroupMal.jsp</result>
+        </action>
+        
+        <action name="Contenidos" class="Alumno.Contenidos" >
+            <result name="SUCCESS">/Alumno/ListaContenidos.jsp</result>
+        </action>
+    
     </package>
 </struts>
