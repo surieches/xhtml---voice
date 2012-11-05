@@ -7,49 +7,51 @@
         <title>Insertar Registros</title>
         <link href="Estilos/estilo-general.css" rel="stylesheet" type="text/css" />
         <link href="Estilos/estilo-menu.css" rel="stylesheet" type="text/css" />
-
         <script type="text/javascript" src="../Scripts/jquery-1.8.2.min.js">           
         </script>
 
         <script type="text/javascript" src="../Scripts/jqueryvalidator.js"></script>
 
-
+        <script src="../Scripts/jquery-ui.js"></script>
+        <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
+        <script>
+            $(function() {
+                $( "#fecha" ).datepicker();
+            });
+        </script>
         <script>
             $(document).ready(function(){
-                $("#validar").validate({
+                $("#Validatetu").validate({
                     rules:{
-                        curp:{
+                        CURP:{
                             required:true
                         },
-                        f_nac:{
+                        /*Fecha_nac:{
                             required:true
-                        },  
-                        calle:{
+                       
+                        },  */
+                        Calle:{
                             required:true
                         },
-                        num:{
-                            required:true
+                        Numero:{
+                            required:true,
+                            number:true
                           
                         }, 
-                        col:{
+                        Colonia:{
                             required:true
                         },  
-                        del:{
+                        Delegacion:{
                             required:true
                         }
                         ,  
-                        pais:{
+                        Pais:{
                             required:true
                         },
                         Email:{
                             required:true,
                             email:true
                         }
-                    },
-                    messages:{
-                        
-                        
-                        
                     }
 
                 });
@@ -59,24 +61,25 @@
     <body class="body">
 
         <div id="container">
-            <s:form action="agregarEs" method="POST" id="validar">
+            <s:form action="agregarEs" method="POST" id="Validatetu">
 
                 <h1>  Insertar</h1>
 
                 <s:textfield name="Matricula" label="Matricula asignada"/>
-
-                <s:textfield id="curp" name="CURP" label="C.U.R.P."/>
-                <s:textfield id="f_nac" name="Fecha_nac" label="Fecha de nacimiento"/>
-                <s:textfield id="calle" name="Calle" label="Calle"/>
-                <s:textfield id="num" name="Numero" label="Numero"/>
-                <s:textfield id="col" name="Colonia" label="Colonia"/>
-                <s:textfield id="del" name="Delegacion" label="Delegación"/>
-                <s:textfield id="pais" name="Pais" label="País"/>
+                <s:textfield id="CURP" name="CURP" label="C.U.R.P."/>
+                <s:textfield id="fecha" name="Fecha_nac" label="Fecha de nacimiento(dd/mm/aaaa)"/>
+                <s:textfield id="Calle" name="Calle" label="Calle"/>
+                <s:textfield id="Numero" name="Numero" label="Numero"/>
+                <s:textfield id="Colonia" name="Colonia" label="Colonia"/>
+                <s:textfield id="Delegacion" name="Delegacion" label="Delegación"/>
+                <s:textfield id="Pais" name="Pais" label="País"/>
                 <s:textfield id="Email" name="Email" label="E-Mail"/>
-                <s:submit value="Guardar"/>
+                <s:submit align="center" value="Guardar"/>
             </div>
             <div></div>
         </s:form>
+
+
 
     </body>
 

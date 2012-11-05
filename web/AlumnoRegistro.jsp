@@ -57,7 +57,7 @@
                             <td><s:textfield name="Delegacion" label="Town hall" /></td>
                         </tr>
                         <tr>
-                            <td<s:textfield name="Pais" label="Country" /></td>
+                            <td><s:textfield name="Pais" label="Country" /></td>
                         </tr>
                         <tr>
                             <td><s:textfield name="Email" label="E-mail" /></td>

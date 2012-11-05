@@ -14,7 +14,14 @@
         <link href="Estilos/estilo-general.css" rel="stylesheet" type="text/css" />
         <link href="Estilos/estilo-menu.css" rel="stylesheet" type="text/css" />
         <link href="Estilos/formulario.css" rel="stylesheet" type="text/css" />
-        
+        <script type="text/javascript" src="../Scripts/jquery-1.8.2.min.js">           
+        </script>
+
+        <script type="text/javascript" src="../Scripts/jqueryvalidator.js"></script>
+
+         <script>
+          
+        </script>
     </head>
     <body class="body">
         <div align="center">
